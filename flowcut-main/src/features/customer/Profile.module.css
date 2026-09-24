@@ -1,0 +1,66 @@
+.displayNameLabel {
+  color: #fff;
+}
+.sectionLabel {
+  font-family: var(--font-pixel);
+  font-size: var(--pixel-label);
+  color: var(--customer-muted);
+  margin: 0 0 var(--space-2);
+}
+
+.name {
+  font-size: var(--text-display-sm);
+  color: var(--customer-cream);
+  margin: 0 0 var(--space-5);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--customer-surface);
+  border: 2px solid var(--customer-surface-border);
+  border-radius: var(--radius-pixel);
+  padding: var(--space-3) var(--space-4);
+}
+
+.rowTitle {
+  color: var(--customer-cream);
+  font-weight: 600;
+  font-size: var(--text-body-sm);
+}
+
+.rowSub {
+  color: var(--customer-muted);
+  font-size: var(--text-caption);
+}
+
+.rowDate {
+  color: var(--customer-muted);
+  font-size: var(--text-caption);
+}
+
+.dangerZone {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 2px dashed var(--customer-surface-border);
+}
+
+.dangerTitle {
+  font-weight: 600;
+  color: var(--customer-coral);
+  margin: 0 0 4px;
+}
+
+.dangerBody {
+  font-size: var(--text-caption);
+  color: var(--customer-muted);
+  line-height: 1.6;
+  margin: 0 0 var(--space-3);
+}

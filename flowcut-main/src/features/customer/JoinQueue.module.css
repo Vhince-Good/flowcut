@@ -1,0 +1,55 @@
+.sectionLabel {
+  font-family: var(--font-pixel);
+  font-size: var(--pixel-label);
+  color: var(--customer-muted);
+  margin: 0 0 var(--space-3);
+}
+
+.shopName {
+  font-size: var(--text-display-sm);
+  color: var(--customer-cream);
+  margin: 0 0 var(--space-5);
+}
+
+.label {
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  color: var(--customer-cream);
+  margin: 0 0 var(--space-2);
+}
+
+.serviceList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: var(--space-4);
+}
+
+.serviceOption {
+  display: flex;
+  justify-content: space-between;
+  background: var(--customer-surface);
+  border: 2px solid var(--customer-surface-border);
+  border-radius: var(--radius-pixel);
+  padding: var(--space-3) var(--space-4);
+  color: var(--customer-cream);
+  font-weight: 600;
+  font-size: var(--text-body-sm);
+  text-align: left;
+}
+
+.serviceOptionActive {
+  border-color: var(--customer-amber);
+}
+
+.serviceMeta {
+  color: var(--customer-muted);
+  font-weight: 400;
+}
+
+.explain {
+  font-size: var(--text-caption);
+  color: var(--customer-muted);
+  line-height: 1.6;
+  margin: 0 0 var(--space-5);
+}

@@ -1,0 +1,40 @@
+.shell {
+  min-height: 100%;
+  background: var(--staff-page);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4);
+  background: #fff;
+  border-bottom: 1px solid var(--staff-line);
+}
+
+.brand {
+  font-weight: 700;
+}
+
+.who {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-body-sm);
+  color: var(--staff-secondary);
+}
+
+.logout {
+  background: none;
+  border: 1px solid var(--staff-line);
+  border-radius: var(--radius-staff-control);
+  padding: 6px 12px;
+  font-size: var(--text-caption);
+  font-weight: 600;
+}
+
+.main {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: var(--space-4);
+}

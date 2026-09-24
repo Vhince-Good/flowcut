@@ -1,0 +1,31 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  background: var(--customer-ink);
+}
+
+.brand {
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  color: var(--customer-amber);
+  text-decoration: none;
+}
+
+.bell {
+  position: relative;
+  color: var(--customer-cream);
+  display: flex;
+}
+
+.dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--customer-coral);
+  border: 1.5px solid var(--customer-ink);
+}

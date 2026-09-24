@@ -1,0 +1,36 @@
+.chart {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  height: 140px;
+  padding-top: var(--space-3);
+}
+
+.col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.bar {
+  width: 100%;
+  max-width: 32px;
+  background: var(--staff-accent);
+  border-radius: 4px 4px 0 0;
+  min-height: 4px;
+}
+
+.value {
+  font-size: var(--text-caption);
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.label {
+  font-size: var(--text-caption);
+  color: var(--staff-secondary);
+  margin-top: 2px;
+}

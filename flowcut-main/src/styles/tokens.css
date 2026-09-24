@@ -1,0 +1,74 @@
+/* ===========================================================
+   FlowCut design tokens
+   Shared by both the Customer (pixel) skin and the
+   Barber/Admin (clean) skin. Components should always read
+   these variables, never a raw hex value.
+   =========================================================== */
+
+:root {
+  /* ---- Customer palette (pixel/arcade) ---- */
+  --customer-ink: #14131f;
+  --customer-surface: #1e1d2c;
+  --customer-surface-border: #35334a;
+  --customer-cream: #f3ecdd;
+  --customer-red: #d33f3f;
+  --customer-blue: #2c4a7c;
+  --customer-amber: #e8a33d;
+  --customer-teal: #5dcaa5;
+  --customer-coral: #e24b4a;
+  --customer-muted: #8b8a80;
+
+  /* ---- Staff palette (Barber + Admin, clean SaaS) ---- */
+  --staff-ink: #1b1b1d;
+  --staff-secondary: #8a8980;
+  --staff-paper: #ffffff;
+  --staff-page: #fafaf8;
+  --staff-line: #e3e1d8;
+  --staff-line-soft: #edece4;
+  --staff-accent: #2154cb;
+  --staff-accent-soft: #e6edfb;
+  --staff-success: #1f8a5f;
+  --staff-success-soft: #dff2e8;
+  --staff-warning: #c97a17;
+  --staff-warning-soft: #fbedd9;
+  --staff-danger: #c0392b;
+  --staff-danger-soft: #fbe8e6;
+
+  /* ---- Congestion system (shared meaning, Section 6) ---- */
+  --congestion-low: var(--customer-teal);
+  --congestion-low-staff: var(--staff-success);
+  --congestion-moderate: var(--customer-amber);
+  --congestion-moderate-staff: var(--staff-warning);
+  --congestion-high: var(--customer-coral);
+  --congestion-high-staff: var(--staff-danger);
+
+  /* ---- Spacing scale ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* ---- Radius ---- */
+  --radius-pixel: 6px;
+  --radius-staff-card: 12px;
+  --radius-staff-control: 8px;
+
+  /* ---- Type scale (Inter, all roles) ---- */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-pixel: 'Press Start 2P', monospace;
+
+  --text-display-lg: 34px;
+  --text-display-sm: 24px;
+  --text-heading: 18px;
+  --text-body: 15px;
+  --text-body-sm: 13px;
+  --text-caption: 11px;
+
+  --pixel-hero: 30px;
+  --pixel-number: 26px;
+  --pixel-label: 9px;
+}

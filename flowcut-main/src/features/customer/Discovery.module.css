@@ -1,0 +1,28 @@
+.sectionLabel {
+  font-family: var(--font-pixel);
+  font-size: var(--pixel-label);
+  color: var(--customer-muted);
+  margin: 0 0 var(--space-3);
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: var(--space-4);
+}
+
+.filter, .filterActive {
+  font-size: var(--text-caption);
+  font-weight: 600;
+  padding: 7px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--customer-surface-border);
+  background: transparent;
+  color: var(--customer-muted);
+}
+
+.filterActive {
+  background: var(--customer-amber);
+  border-color: var(--customer-amber);
+  color: var(--customer-ink);
+}

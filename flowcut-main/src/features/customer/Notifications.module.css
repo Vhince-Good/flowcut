@@ -1,0 +1,21 @@
+.sectionLabel {
+  font-family: var(--font-pixel);
+  font-size: var(--pixel-label);
+  color: var(--customer-muted);
+  margin: 0 0 var(--space-3);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  background: var(--customer-surface);
+  border: 2px solid var(--customer-surface-border);
+  border-radius: var(--radius-pixel);
+  padding: var(--space-3) var(--space-4);
+  color: var(--customer-cream);
+  font-size: var(--text-body-sm);
+}

@@ -1,0 +1,82 @@
+.sectionLabel {
+  font-family: var(--font-pixel);
+  font-size: var(--pixel-label);
+  color: var(--customer-muted);
+  margin: var(--space-2) 0 var(--space-3);
+}
+
+.name {
+  font-size: var(--text-display-sm);
+  color: var(--customer-cream);
+  margin: 0 0 4px;
+}
+
+.meta {
+  font-size: var(--text-body-sm);
+  color: var(--customer-muted);
+  margin: 0 0 2px;
+}
+
+.metaSmall {
+  font-size: var(--text-caption);
+  color: var(--customer-muted);
+  margin-top: 6px;
+}
+
+.queueLink {
+  display: inline-block;
+  margin-top: var(--space-3);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--customer-amber);
+  text-decoration: underline;
+}
+
+.waitBlock {
+  background: var(--customer-surface);
+  border: 2px solid var(--customer-surface-border);
+  border-radius: var(--radius-pixel);
+  padding: var(--space-4);
+  margin: var(--space-4) 0;
+}
+
+.serviceList {
+  background: var(--customer-surface);
+  border: 2px solid var(--customer-surface-border);
+  border-radius: var(--radius-pixel);
+  padding: 0 var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.serviceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--customer-surface-border);
+}
+
+.serviceRow:first-child {
+  border-top: none;
+}
+
+.serviceName {
+  color: var(--customer-cream);
+  font-weight: 600;
+  font-size: var(--text-body-sm);
+}
+
+.serviceMeta {
+  color: var(--customer-muted);
+  font-size: var(--text-caption);
+}
+
+.servicePrice {
+  color: var(--customer-amber);
+  font-weight: 700;
+}
+
+.stickyButton {
+  position: sticky;
+  bottom: var(--space-4);
+}

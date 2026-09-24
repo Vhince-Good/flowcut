@@ -1,0 +1,34 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 19, 31, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: var(--space-4);
+}
+
+.dialog {
+  width: 100%;
+  max-width: 420px;
+  padding: var(--space-5);
+}
+
+.dialog.clean {
+  background: #fff;
+  border-radius: var(--radius-staff-card);
+}
+
+.dialog.pixel {
+  background: var(--customer-surface);
+  border: 3px solid var(--customer-cream);
+  border-radius: var(--radius-pixel);
+  color: var(--customer-cream);
+}
+
+.title {
+  font-size: var(--text-heading);
+  font-weight: 600;
+  margin: 0 0 var(--space-3);
+}

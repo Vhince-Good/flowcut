@@ -1,0 +1,28 @@
+.qrWrap {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-4);
+  background: #fff;
+  border-radius: var(--radius-staff-control);
+  margin-bottom: var(--space-3);
+}
+
+.link {
+  font-size: var(--text-caption);
+  color: var(--staff-secondary);
+  word-break: break-all;
+  margin: 0 0 var(--space-4);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.note {
+  font-size: var(--text-caption);
+  color: var(--staff-secondary);
+  max-width: 420px;
+  line-height: 1.6;
+}

@@ -1,0 +1,21 @@
+.card {
+  background: var(--staff-page);
+  border-radius: var(--radius-staff-control);
+  padding: var(--space-3);
+}
+
+.label {
+  font-size: var(--text-caption);
+  color: var(--staff-secondary);
+  margin-bottom: 4px;
+}
+
+.value {
+  font-size: var(--text-display-sm);
+  font-weight: 700;
+  color: var(--staff-ink);
+}
+
+.value.warning { color: var(--staff-warning); }
+.value.danger { color: var(--staff-danger); }
+.value.success { color: var(--staff-success); }
