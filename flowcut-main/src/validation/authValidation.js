@@ -64,13 +64,6 @@ export function validatePassword(password) {
   return null;
 }
 
-export const LOGIN_ROLES = ['customer', 'barber', 'shop_admin', 'super_admin'];
-
-export function validateLoginRole(role) {
-  if (!LOGIN_ROLES.includes(role)) return 'Select an account role.';
-  return null;
-}
-
 export function validateConfirmPassword(password, confirm) {
   if (confirm !== password) return "Passwords don't match.";
   return null;

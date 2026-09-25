@@ -83,13 +83,6 @@ export function validatePassword(password) {
   return null;
 }
 
-export const LOGIN_ROLES = ['customer', 'barber', 'shop_admin', 'super_admin'];
-
-export function validateLoginRole(role) {
-  if (!LOGIN_ROLES.includes(role)) return 'Select a valid account role.';
-  return null;
-}
-
 export const LOGIN_GENERIC_ERROR = 'Invalid Gmail or password.';
 
 /**

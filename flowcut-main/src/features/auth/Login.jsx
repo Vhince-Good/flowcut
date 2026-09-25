@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { loginRequest, rateLimitMessage } from '../../api/authApi';
-import { LOGIN_ROLES, validateEmail, validateLoginRole, validatePassword } from '../../validation/authValidation';
+import { validateEmail, validatePassword } from '../../validation/authValidation';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 import styles from './Auth.module.css';
@@ -13,7 +13,6 @@ export default function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
   const [errors, setErrors] = useState({});
   const [loginError, setLoginError] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -28,7 +27,6 @@ export default function Login() {
     const nextErrors = {
       email: validateEmail(email),
       password: validatePassword(password),
-      role: validateLoginRole(role),
     };
 
     setErrors(nextErrors);
@@ -42,7 +40,6 @@ export default function Login() {
       const { data } = await loginRequest({
         email,
         password,
-        role,
       });
 
       console.log('[AUTH] LOGIN SUCCESS', data.user);
@@ -86,29 +83,6 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
             error={errors.email}
           />
-
-          <div className={styles.selectField}>
-            <label htmlFor="login-role">Account role</label>
-            <select
-              id="login-role"
-              name="role"
-              value={role}
-              onChange={(e) => {
-                setRole(e.target.value);
-                setErrors((current) => ({ ...current, role: null }));
-                setLoginError('');
-              }}
-              aria-invalid={!!errors.role}
-            >
-              <option value="">Select your role</option>
-              {LOGIN_ROLES.map((loginRole) => (
-                <option key={loginRole} value={loginRole}>
-                  {loginRole === 'shop_admin' ? 'Shop admin' : loginRole === 'super_admin' ? 'Super admin' : loginRole[0].toUpperCase() + loginRole.slice(1)}
-                </option>
-              ))}
-            </select>
-            {errors.role && <p className={styles.selectError}>{errors.role}</p>}
-          </div>
 
           <Input
             label="Password"

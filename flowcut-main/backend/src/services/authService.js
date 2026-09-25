@@ -11,7 +11,6 @@ import {
   normalizeEmail,
   validateOtp,
   validatePassword,
-  validateLoginRole,
   LOGIN_GENERIC_ERROR,
 } from '../validation/authValidation.js';
 import {
@@ -206,15 +205,13 @@ export async function resendEmailOtp({ email }) {
   return { email: normalizedEmail, expiresAt: user.otpExpiresAt.toISOString() };
 }
 
-export async function authenticateUser({ email, password, role }) {
+export async function authenticateUser({ email, password }) {
   const emailErr = validateEmail(email);
-  const roleErr = validateLoginRole(role);
-  if (emailErr || roleErr || typeof password !== 'string' || !password) {
+  if (emailErr || typeof password !== 'string' || !password) {
     // Intentionally the same generic message as a wrong password below —
     // don't tell the caller which part of their input was the problem.
-    throw new AppError(400, 'Please enter your Gmail, password, and account role.', {
+    throw new AppError(400, 'Please enter your Gmail and password.', {
       email: emailErr,
-      role: roleErr,
     });
   }
 
@@ -230,12 +227,6 @@ export async function authenticateUser({ email, password, role }) {
     // defense in depth — but it means a deleted account NEVER succeeds
     // at login, full stop, regardless of how its record got there.
     throw new AppError(401, LOGIN_GENERIC_ERROR);
-  }
-
-  if (user.role !== role) {
-    throw new AppError(403, 'The selected role does not match this account.', {
-      role: 'Choose the role assigned to this account.',
-    });
   }
 
   if (!user.emailVerified) {
