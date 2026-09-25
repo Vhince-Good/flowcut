@@ -25,6 +25,20 @@ import { sendOtpEmail } from './mailService.js';
 const SALT_ROUNDS = 12;
 const OTP_TTL_MS = 10 * 60 * 1000;
 
+function snapshotOtpState(user) {
+  return {
+    otpHash: user.otpHash,
+    otpExpiresAt: user.otpExpiresAt,
+    otpAttempts: user.otpAttempts,
+    otpSentAt: user.otpSentAt,
+  };
+}
+
+async function restoreOtpState(user, state) {
+  Object.assign(user, state);
+  await user.save({ validateBeforeSave: false });
+}
+
 /**
  * The ONLY shape of user data that ever leaves this service. passwordHash
  * never appears here — not omitted by convention, structurally absent.
@@ -63,10 +77,10 @@ function duplicateKeyMessage(err) {
  * rejected with a 400 before anything is written to the database — there
  * is no code path that creates an account without it.
  */
-export async function registerCustomer({ name, lastName, email, password, termsAccepted, privacyAccepted }) {
+export async function registerCustomer({ firstName, lastName, email, password, termsAccepted, privacyAccepted }) {
   const errors = {};
-  const nameErr = validateName(name);
-  if (nameErr) errors.name = nameErr;
+  const firstNameErr = validateName(firstName);
+  if (firstNameErr) errors.firstName = firstNameErr;
   const lastNameErr = validateName(lastName);
   if (lastNameErr) errors.lastName = lastNameErr;
   const trimmedEmail = typeof email === 'string' ? email.trim() : '';
@@ -87,10 +101,13 @@ export async function registerCustomer({ name, lastName, email, password, termsA
   const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
   const now = new Date();
 
-  const existingEmail = await User.findOne({ email: normalizedEmail });
+  const existingEmail = await User.findOne({ email: normalizedEmail }).select(
+    '+otpHash +otpExpiresAt +otpAttempts +otpSentAt'
+  );
   if (existingEmail) {
     if (!existingEmail.emailVerified && !existingEmail.isDeleted) {
-      existingEmail.name = name.trim();
+      const previousOtpState = snapshotOtpState(existingEmail);
+      existingEmail.name = firstName.trim();
       existingEmail.lastName = lastName.trim();
       existingEmail.passwordHash = passwordHash;
       existingEmail.termsAccepted = true;
@@ -106,9 +123,12 @@ export async function registerCustomer({ name, lastName, email, password, termsA
       existingEmail.otpAttempts = 0;
       existingEmail.otpSentAt = new Date();
       await existingEmail.save({ validateBeforeSave: false });
-      await sendOtpEmail(normalizedEmail, otp);
-      existingEmail.otpExpiresAt = new Date(Date.now() + OTP_TTL_MS);
-      await existingEmail.save({ validateBeforeSave: false });
+      try {
+        await sendOtpEmail(normalizedEmail, otp);
+      } catch (err) {
+        await restoreOtpState(existingEmail, previousOtpState);
+        throw err;
+      }
       return { email: normalizedEmail, expiresAt: existingEmail.otpExpiresAt.toISOString() };
     }
     throw new AppError(409, 'This Gmail is already registered.', { email: 'Already registered.' });
@@ -117,7 +137,7 @@ export async function registerCustomer({ name, lastName, email, password, termsA
   let user;
   try {
     user = await User.create({
-      name: name.trim(),
+      name: firstName.trim(),
       lastName: lastName.trim(),
       email: normalizedEmail,
       passwordHash,
@@ -193,25 +213,31 @@ export async function resendEmailOtp({ email }) {
   const user = await User.findOne({ email: normalizedEmail }).select('+otpHash +otpExpiresAt +otpAttempts +otpSentAt');
   if (!user || user.isDeleted || user.emailVerified) throw new AppError(400, 'This account does not need verification.');
 
+  const previousOtpState = snapshotOtpState(user);
   const otp = String(crypto.randomInt(100000, 1000000));
   user.otpHash = crypto.createHash('sha256').update(otp).digest('hex');
   user.otpExpiresAt = new Date(Date.now() + OTP_TTL_MS);
   user.otpAttempts = 0;
   user.otpSentAt = new Date();
   await user.save({ validateBeforeSave: false });
-  await sendOtpEmail(normalizedEmail, otp);
-  user.otpExpiresAt = new Date(Date.now() + OTP_TTL_MS);
-  await user.save({ validateBeforeSave: false });
+  try {
+    await sendOtpEmail(normalizedEmail, otp);
+  } catch (err) {
+    await restoreOtpState(user, previousOtpState);
+    throw err;
+  }
   return { email: normalizedEmail, expiresAt: user.otpExpiresAt.toISOString() };
 }
 
 export async function authenticateUser({ email, password }) {
   const emailErr = validateEmail(email);
-  if (emailErr || typeof password !== 'string' || !password) {
+  const passwordErr = validatePassword(password);
+  if (emailErr || passwordErr) {
     // Intentionally the same generic message as a wrong password below —
     // don't tell the caller which part of their input was the problem.
     throw new AppError(400, 'Please enter your Gmail and password.', {
       email: emailErr,
+      password: passwordErr,
     });
   }
 
@@ -229,16 +255,16 @@ export async function authenticateUser({ email, password }) {
     throw new AppError(401, LOGIN_GENERIC_ERROR);
   }
 
+  const passwordMatches = await bcrypt.compare(password, user.passwordHash);
+  if (!passwordMatches) {
+    throw new AppError(401, LOGIN_GENERIC_ERROR);
+  }
+
   if (!user.emailVerified) {
     throw new AppError(403, 'Please verify your Gmail before logging in.', {
       email: 'Gmail verification required.',
       otpExpiresAt: user.otpExpiresAt ? user.otpExpiresAt.toISOString() : null,
     });
-  }
-
-  const passwordMatches = await bcrypt.compare(password, user.passwordHash);
-  if (!passwordMatches) {
-    throw new AppError(401, LOGIN_GENERIC_ERROR);
   }
 
   const token = signToken({ id: user._id.toString() });

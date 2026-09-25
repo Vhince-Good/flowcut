@@ -57,27 +57,6 @@
   text-decoration: none;
 }
 
-.selectField {
-  margin-bottom: 16px;
-}
-
-.selectField label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: var(--text-body-sm);
-}
-
-.selectField select {
-  width: 100%;
-  min-height: 42px;
-  padding: 0 12px;
-  border: 1px solid var(--staff-line);
-  border-radius: var(--radius-staff-control);
-  background: #fff;
-  color: var(--staff-ink);
-}
-
-.selectError,
 .loginError {
   color: var(--staff-danger, #b42318);
   font-size: var(--text-caption);

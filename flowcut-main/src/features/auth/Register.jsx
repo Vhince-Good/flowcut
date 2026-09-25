@@ -15,7 +15,7 @@ import styles from './Auth.module.css';
 
 function createEmptyForm() {
   return {
-    name: '',
+    firstName: '',
     lastName: '',
     email: '',
     password: '',
@@ -27,7 +27,7 @@ function createEmptyForm() {
 
 function validateForm(form) {
   return {
-    name: validateName(form.name),
+    firstName: validateName(form.firstName),
     lastName: validateName(form.lastName),
     email: validateEmail(form.email),
     password: validatePassword(form.password),
@@ -63,7 +63,7 @@ export default function Register() {
     setSubmitting(true);
     try {
       const { data } = await registerRequest({
-        name: form.name.trim(),
+        firstName: form.firstName.trim(),
         lastName: form.lastName.trim(),
         email: form.email.trim().toLowerCase(),
         password: form.password,
@@ -92,10 +92,10 @@ export default function Register() {
           {serverError && <div role="alert">{serverError}</div>}
 
           <Input
-            label="Name"
-            value={form.name}
-            onChange={(event) => update('name', filterNameInput(event.target.value))}
-            error={errors.name}
+            label="First name"
+            value={form.firstName}
+            onChange={(event) => update('firstName', filterNameInput(event.target.value))}
+            error={errors.firstName}
           />
           <Input
             label="Last name"

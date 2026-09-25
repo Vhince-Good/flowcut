@@ -11,9 +11,9 @@ import { setAuthCookie, clearAuthCookie } from '../utils/cookies.js';
 
 export async function register(req, res, next) {
   try {
-    const { name, lastName, email, password, termsAccepted, privacyAccepted } = req.body || {};
+    const { firstName, lastName, email, password, termsAccepted, privacyAccepted } = req.body || {};
     const data = await authService.registerCustomer({
-      name,
+      firstName,
       lastName,
       email,
       password,

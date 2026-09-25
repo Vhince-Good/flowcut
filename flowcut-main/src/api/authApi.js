@@ -59,10 +59,10 @@ export function rateLimitMessage(error) {
   return `Too many requests. Try again in ${minutes} minutes ${seconds} seconds.`;
 }
 
-export function registerRequest({ name, lastName, email, password, termsAccepted, privacyAccepted }) {
+export function registerRequest({ firstName, lastName, email, password, termsAccepted, privacyAccepted }) {
   return request('/api/auth/register', {
     method: 'POST',
-    body: { name, lastName, email, password, termsAccepted, privacyAccepted },
+    body: { firstName, lastName, email, password, termsAccepted, privacyAccepted },
   });
 }
 
